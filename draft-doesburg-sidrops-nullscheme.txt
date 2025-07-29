@@ -1,0 +1,155 @@
+
+
+
+
+SIDROPS                                                      D. Doesburg
+Internet-Draft                                              29 July 2025
+Intended status: Informational                                          
+Expires: 30 January 2026
+
+
+Null Scheme for Signed Objects in the Resource Public Key Infrastructure
+                                 (RPKI)
+                draft-doesburg-sidrops-nullscheme-latest
+
+Abstract
+
+   This document specifies the Null Scheme for use in Signed Objects in
+   the Resource Public Key Infrastructure (RPKI).  The Null Scheme is a
+   toy signature scheme that can replace the redundant and costly use of
+   actual digital signatures from so-called "one-time-use" key pairs in
+   Signed Objects.  The Null Scheme has as public key the digest of the
+   message to be signed, and the signature is always empty.  When a Null
+   Scheme public key is the subject of a Signed Object's one-time-use
+   End-Entity (EE) certificate, it establishes a secure binding between
+   the issuer of the EE certificate and the message to be signed.  This
+   is cheaper in terms of size and verification time than using a real
+   signature scheme, while providing the same security guarantees.
+
+About This Document
+
+   This note is to be removed before publishing as an RFC.
+
+   Status information for this document may be found at
+   https://datatracker.ietf.org/doc/draft-doesburg-sidrops-nullscheme/.
+
+   Discussion of this document takes place on the SIDROPS Working Group
+   mailing list (mailto:sidrops@ietf.org), which is archived at
+   https://mailarchive.ietf.org/arch/browse/sidrops/.  Subscribe at
+   https://www.ietf.org/mailman/listinfo/sidrops/.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on 30 January 2026.
+
+Copyright Notice
+
+   Copyright (c) 2025 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.  Code Components
+   extracted from this document must include Revised BSD License text as
+   described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Revised BSD License.
+
+Table of Contents
+
+   1.  Introduction
+   2.  Conventions and Definitions
+   3.  Security Considerations
+   4.  IANA Considerations
+   5.  Normative References
+   Acknowledgments
+   Author's Address
+
+1.  Introduction
+
+   This document specifies the Null Scheme for use in Signed Objects in
+   the Resource Public Key Infrastructure (RPKI) [RFC6480].  The Null
+   Scheme is a toy signature scheme that can replace the redundant and
+   costly use of actual digital signatures from so-called "one-time-use"
+   key pairs in RPKI Signed Objects [RFC6488].  Signed Objects contain
+   an End-Entity (EE) certificate issued by a Certificate Authority
+   (CA).  This EE certificate usually contains a public key
+   corresponding to a one-time-use key pair, which is used to sign a
+   single CMS signed-data object.  The practice of using each key pair
+   for only one Signed Object enables the use of a CRL [RFC5280] to
+   revoke individual objects.
+
+   The null scheme is _not_ an actual digital signature algorithm, or
+   even a One-Time Signature (OTS) scheme: it requires the (single)
+   message to be signed to be known before the public key can be
+   generated.
+
+2.  Conventions and Definitions
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in
+   BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
+
+3.  Security Considerations
+
+   TODO Security
+
+4.  IANA Considerations
+
+   This document has no IANA actions.
+
+5.  Normative References
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/rfc/rfc2119>.
+
+   [RFC5280]  Cooper, D., Santesson, S., Farrell, S., Boeyen, S.,
+              Housley, R., and W. Polk, "Internet X.509 Public Key
+              Infrastructure Certificate and Certificate Revocation List
+              (CRL) Profile", RFC 5280, DOI 10.17487/RFC5280, May 2008,
+              <https://www.rfc-editor.org/rfc/rfc5280>.
+
+   [RFC6480]  Lepinski, M. and S. Kent, "An Infrastructure to Support
+              Secure Internet Routing", RFC 6480, DOI 10.17487/RFC6480,
+              February 2012, <https://www.rfc-editor.org/rfc/rfc6480>.
+
+   [RFC6487]  Huston, G., Michaelson, G., and R. Loomans, "A Profile for
+              X.509 PKIX Resource Certificates", RFC 6487,
+              DOI 10.17487/RFC6487, February 2012,
+              <https://www.rfc-editor.org/rfc/rfc6487>.
+
+   [RFC6488]  Lepinski, M., Chi, A., and S. Kent, "Signed Object
+              Template for the Resource Public Key Infrastructure
+              (RPKI)", RFC 6488, DOI 10.17487/RFC6488, February 2012,
+              <https://www.rfc-editor.org/rfc/rfc6488>.
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+Acknowledgments
+
+   TODO acknowledge.
+
+Author's Address
+
+   Dirk Doesburg
+   Email: dirk@ddoesburg.nl

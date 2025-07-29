@@ -4,16 +4,15 @@
 <meta charset="utf-8">
 <meta content="Common,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
-<title>TODO - Your title</title>
-<meta content="Your Name Here" name="author">
+<title>Null Scheme for Signed Objects in the Resource Public Key Infrastructure (RPKI)</title>
+<meta content="Dirk Doesburg" name="author">
 <meta content="
-       TODO Abstract 
+       This document specifies the Null Scheme for use in Signed Objects in the Resource Public Key Infrastructure (RPKI). 
+The Null Scheme is a toy signature scheme that can replace the redundant and costly use of actual digital signatures from so-called &quot;one-time-use&quot; key pairs in Signed Objects.
+The Null Scheme has as public key the digest of the message to be signed, and the signature is always empty. When a Null Scheme public key is the subject of a Signed Object's one-time-use End-Entity (EE) certificate, it establishes a secure binding between the issuer of the EE certificate and the message to be signed. This is cheaper in terms of size and verification time than using a real signature scheme, while providing the same security guarantees. 
     " name="description">
 <meta content="xml2rfc 3.30.0" name="generator">
-<meta content="next generation" name="keyword">
-<meta content="unicorn" name="keyword">
-<meta content="sparkling distributed ledger" name="keyword">
-<meta content="draft-todo-yourname-protocol-latest" name="ietf.draft">
+<meta content="draft-doesburg-sidrops-nullscheme-latest" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.30.0
     Python 3.12.11
@@ -29,7 +28,7 @@
     setuptools 80.9.0
     wcwidth 0.2.13
 -->
-<link href="draft-todo-yourname-protocol.xml" rel="alternate" type="application/rfc+xml">
+<link href="draft-doesburg-sidrops-nullscheme.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
 <style type="text/css">@font-face {
   font-family: 'Lora';
@@ -1045,12 +1044,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <table class="ears">
 <thead><tr>
 <td class="left">Internet-Draft</td>
-<td class="center">TODO - Abbreviation</td>
+<td class="center">Null Scheme for the RPKI</td>
 <td class="right">July 2025</td>
 </tr></thead>
 <tfoot><tr>
-<td class="left">Here</td>
-<td class="center">Expires 29 January 2026</td>
+<td class="left">Doesburg</td>
+<td class="center">Expires 30 January 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1058,30 +1057,31 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <div id="internal-metadata" class="document-information">
 <dl id="identifiers">
 <dt class="label-workgroup">Workgroup:</dt>
-<dd class="workgroup">WG Working Group</dd>
+<dd class="workgroup">SIDROPS</dd>
 <dt class="label-internet-draft">Internet-Draft:</dt>
-<dd class="internet-draft">draft-todo-yourname-protocol-latest</dd>
+<dd class="internet-draft">draft-doesburg-sidrops-nullscheme-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-07-28" class="published">28 July 2025</time>
+<time datetime="2025-07-29" class="published">29 July 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-01-29">29 January 2026</time></dd>
+<dd class="expires"><time datetime="2026-01-30">30 January 2026</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
-      <div class="author-name">Y. N. Here</div>
-<div class="org">Your Organization Here</div>
+      <div class="author-name">D. Doesburg</div>
 </div>
 </dd>
 </dl>
 </div>
-<h1 id="title">TODO - Your title</h1>
+<h1 id="title">Null Scheme for Signed Objects in the Resource Public Key Infrastructure (RPKI)</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">TODO Abstract<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">This document specifies the Null Scheme for use in Signed Objects in the Resource Public Key Infrastructure (RPKI). 
+The Null Scheme is a toy signature scheme that can replace the redundant and costly use of actual digital signatures from so-called "one-time-use" key pairs in Signed Objects.
+The Null Scheme has as public key the digest of the message to be signed, and the signature is always empty. When a Null Scheme public key is the subject of a Signed Object's one-time-use End-Entity (EE) certificate, it establishes a secure binding between the issuer of the EE certificate and the message to be signed. This is cheaper in terms of size and verification time than using a real signature scheme, while providing the same security guarantees.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-about-this-document">
@@ -1089,14 +1089,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
       </h2>
 <p id="section-note.1-1">This note is to be removed before publishing as an RFC.<a href="#section-note.1-1" class="pilcrow">¶</a></p>
 <p id="section-note.1-2">
-        The latest revision of this draft can be found at <span><a href="https://example.com/LATEST">https://example.com/LATEST</a></span>.
-        Status information for this document may be found at <span><a href="https://datatracker.ietf.org/doc/draft-todo-yourname-protocol/">https://datatracker.ietf.org/doc/draft-todo-yourname-protocol/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
+        Status information for this document may be found at <span><a href="https://datatracker.ietf.org/doc/draft-doesburg-sidrops-nullscheme/">https://datatracker.ietf.org/doc/draft-doesburg-sidrops-nullscheme/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
 <p id="section-note.1-3">
         Discussion of this document takes place on the
-        WG Working Group mailing list (<span><a href="mailto:WG@example.com">mailto:WG@example.com</a></span>),
-        which is archived at <span><a href="https://example.com/WG">https://example.com/WG</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
-<p id="section-note.1-4">Source for this draft and an issue tracker can be found at
-        <span><a href="https://github.com/USER/REPO">https://github.com/USER/REPO</a></span>.<a href="#section-note.1-4" class="pilcrow">¶</a></p>
+        SIDROPS Working Group mailing list (<span><a href="mailto:sidrops@ietf.org">mailto:sidrops@ietf.org</a></span>),
+        which is archived at <span><a href="https://mailarchive.ietf.org/arch/browse/sidrops/">https://mailarchive.ietf.org/arch/browse/sidrops/</a></span>.
+        Subscribe at <span><a href="https://www.ietf.org/mailman/listinfo/sidrops/">https://www.ietf.org/mailman/listinfo/sidrops/</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
 </section>
 <div id="status-of-memo">
 <section id="section-boilerplate.1">
@@ -1117,7 +1115,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 29 January 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 30 January 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1176,7 +1174,10 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">TODO Introduction<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-1">This document specifies the Null Scheme for use in Signed Objects in the Resource Public Key Infrastructure (RPKI) <span>[<a href="#RFC6480" class="cite xref">RFC6480</a>]</span>.
+The Null Scheme is a toy signature scheme that can replace the redundant and costly use of actual digital signatures from so-called "one-time-use" key pairs in RPKI Signed Objects <span>[<a href="#RFC6488" class="cite xref">RFC6488</a>]</span>. 
+Signed Objects contain an End-Entity (EE) certificate issued by a Certificate Authority (CA). This EE certificate usually contains a public key corresponding to a one-time-use key pair, which is used to sign a single CMS signed-data object. The practice of using each key pair for only one Signed Object enables the use of a CRL <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> to revoke individual objects.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">The null scheme is <em>not</em> an actual digital signature algorithm, or even a One-Time Signature (OTS)  scheme: it requires the (single) message to be signed to be known before the public key can be generated.<a href="#section-1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
@@ -1216,6 +1217,22 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
       <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC5280">[RFC5280]</dt>
+      <dd>
+<span class="refAuthor">Cooper, D.</span>, <span class="refAuthor">Santesson, S.</span>, <span class="refAuthor">Farrell, S.</span>, <span class="refAuthor">Boeyen, S.</span>, <span class="refAuthor">Housley, R.</span>, and <span class="refAuthor">W. Polk</span>, <span class="refTitle">"Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile"</span>, <span class="seriesInfo">RFC 5280</span>, <span class="seriesInfo">DOI 10.17487/RFC5280</span>, <time datetime="2008-05" class="refDate">May 2008</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5280">https://www.rfc-editor.org/rfc/rfc5280</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC6480">[RFC6480]</dt>
+      <dd>
+<span class="refAuthor">Lepinski, M.</span> and <span class="refAuthor">S. Kent</span>, <span class="refTitle">"An Infrastructure to Support Secure Internet Routing"</span>, <span class="seriesInfo">RFC 6480</span>, <span class="seriesInfo">DOI 10.17487/RFC6480</span>, <time datetime="2012-02" class="refDate">February 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6480">https://www.rfc-editor.org/rfc/rfc6480</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC6487">[RFC6487]</dt>
+      <dd>
+<span class="refAuthor">Huston, G.</span>, <span class="refAuthor">Michaelson, G.</span>, and <span class="refAuthor">R. Loomans</span>, <span class="refTitle">"A Profile for X.509 PKIX Resource Certificates"</span>, <span class="seriesInfo">RFC 6487</span>, <span class="seriesInfo">DOI 10.17487/RFC6487</span>, <time datetime="2012-02" class="refDate">February 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6487">https://www.rfc-editor.org/rfc/rfc6487</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC6488">[RFC6488]</dt>
+      <dd>
+<span class="refAuthor">Lepinski, M.</span>, <span class="refAuthor">Chi, A.</span>, and <span class="refAuthor">S. Kent</span>, <span class="refTitle">"Signed Object Template for the Resource Public Key Infrastructure (RPKI)"</span>, <span class="seriesInfo">RFC 6488</span>, <span class="seriesInfo">DOI 10.17487/RFC6488</span>, <time datetime="2012-02" class="refDate">February 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6488">https://www.rfc-editor.org/rfc/rfc6488</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8174">[RFC8174]</dt>
     <dd>
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
@@ -1237,11 +1254,10 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <a href="#name-authors-address" class="section-name selfRef">Author's Address</a>
       </h2>
 <address class="vcard">
-        <div dir="auto" class="left"><span class="fn nameRole">Your Name Here</span></div>
-<div dir="auto" class="left"><span class="org">Your Organization Here</span></div>
+        <div dir="auto" class="left"><span class="fn nameRole">Dirk Doesburg</span></div>
 <div class="email">
 <span>Email:</span>
-<a href="mailto:your.email@example.com" class="email">your.email@example.com</a>
+<a href="mailto:dirk@ddoesburg.nl" class="email">dirk@ddoesburg.nl</a>
 </div>
 </address>
 </section>
