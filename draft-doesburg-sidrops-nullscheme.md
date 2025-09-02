@@ -31,7 +31,7 @@ normative:
   RFC5652:
   RFC5280:
   RFC7299:
-  FIPS.180-4: DOI.10.6028/NIST.FIPS.180-4 
+  FIPS.180-4: DOI.10.6028/NIST.FIPS.180-4
 
 informative:
 
@@ -69,7 +69,7 @@ As the input to a signing algorithm when signing a CMS signed-data object is the
 
 {::boilerplate bcp14-tagged}
 
-<!-- 
+<!--
 
 ## Related Work
 
@@ -83,7 +83,7 @@ Maybe somewhere:
 This can update the algorithms specification, so a separate update or obsoletion of RFC7935 is not needed.
 On the one hand, that might it easier to introduce only the Null Scheme without considering a bigger update to RFC7935.
 On the other hand, keeping the Null Scheme specification separate from RFC7935 may be cleaner, as the Null Scheme definition would
-hopefully still be necessary in later versions of RFC7935. 
+hopefully still be necessary in later versions of RFC7935.
 
 Technically, if this document updates RFC7935, and RFC7935 is later obsoleted, that only means that the 'Updates to RFC7935' section in this document becomes irrelevant. The rest of the document remains a proper specification of the Null Scheme, that can be referenced from the replacement of RFC7935. So the hygiene argument against updating RFC7935 from this document is not very strong.
 
@@ -106,13 +106,13 @@ As the Null Scheme requires the message to be signed to be known before the publ
 
 ## Public Key and Signature Generation
 
-The `SignOnce` algorithm takes as input the message to be signed `m`. It produces as output a public key `pk` and a signature `sig`. 
+The `SignOnce` algorithm takes as input the message to be signed `m`. It produces as output a public key `pk` and a signature `sig`.
 As the Null Scheme must only be used to sign CMS signed-data objects, the input message `m` is the output of the Message Digest Calculation Process defined in {{Section 5.4 of RFC5652}}. Therefore, although the Null Scheme's public key is always a digest of the message, the `SignOnce` algorithm actually returns its input `m` directly. The digest algorithm used is indicated by the `SignerInfo` object's `digestAlgorithm` field.
 
 ~~~~
   1. pk = m    # The output of the message digest calculation process
   2. sig = ""  # Empty octet string
-  3. return (pk, sig)  
+  3. return (pk, sig)
 ~~~~
 {: #alg-signonce title="Algorithm SignOnce(m)" }
 
@@ -144,7 +144,7 @@ Given a public key `pk` and corresponding message-signature pair `(m, sig)`, fin
 
 As the Null Scheme is used to sign CMS signed-data objects, it is, as with any other signature scheme, possible for two distinct messages to lead to the same message digest. Finding such a second message `m'` given a message `m` that is valid under public key `pk` is breaking the second-preimage resistance of `H`. This would not only allow forging (or reusing) a Null Scheme signature on `m'`, but also reusing the signature of any other signature scheme. This makes the Null Scheme strictly no less secure than any other signature scheme paired with the same digest algorithm `H`.
 
-<!-- 
+<!--
 
 Slightly more formal security proofs are possible. However, the 'best' security notion SUF-CMA reduces very clearly to collision resistance, not second-preimage resistance. That's not bad, but intuitively second-preimage resistance is enough for actual security in practice. A proof for EUF-KMA reducing to second-preimage resistance is also possible, and I think due to the one-time-use nature that's actually a sufficient (if not equivalent) notion. But I've not seen EUF-KMA used in a one-time-signature context, so it'd be a rather uncommon (and therefore less useful) notion to provide a proof for. So I've opted to not include formal proofs and focus on the intuition applied in particular to the RPKI. Still, I'm keeping the proofs below for reference.
 
@@ -155,7 +155,7 @@ As `sig_i` and `sig'` are always the empty string, this means that the adversary
 
 ### EUF-KMA with Second-Preimage Resistant H
 
-An adversary that breaks EUF-KMA security can, given a target public key `pk` and access to message-signature pairs `(m_i, sig_i)` for messages *not* of its choice, produce a valid forgery `(m', sig')` where `m'` is not one of the known messages `m_i`. Therefore, the adversary has, given `m_i` such that `H(m_i) = pk`, found a distinct message `m'` such that `H(m') = pk`. This contradicts the assumption that `H` is second-preimage resistant. 
+An adversary that breaks EUF-KMA security can, given a target public key `pk` and access to message-signature pairs `(m_i, sig_i)` for messages *not* of its choice, produce a valid forgery `(m', sig')` where `m'` is not one of the known messages `m_i`. Therefore, the adversary has, given `m_i` such that `H(m_i) = pk`, found a distinct message `m'` such that `H(m') = pk`. This contradicts the assumption that `H` is second-preimage resistant.
 
 -->
 
