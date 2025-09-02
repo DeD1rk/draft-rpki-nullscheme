@@ -2,10 +2,10 @@
 
 
 
-SIDROPS                                                      D. Doesburg
-Internet-Draft                                              29 July 2025
+SIDR Operations                                              D. Doesburg
+Internet-Draft                                          2 September 2025
 Intended status: Informational                                          
-Expires: 30 January 2026
+Expires: 6 March 2026
 
 
 Null Scheme for Signed Objects in the Resource Public Key Infrastructure
@@ -33,10 +33,10 @@ About This Document
    Status information for this document may be found at
    https://datatracker.ietf.org/doc/draft-doesburg-sidrops-nullscheme/.
 
-   Discussion of this document takes place on the SIDROPS Working Group
-   mailing list (mailto:sidrops@ietf.org), which is archived at
-   https://mailarchive.ietf.org/arch/browse/sidrops/.  Subscribe at
-   https://www.ietf.org/mailman/listinfo/sidrops/.
+   Discussion of this document takes place on the SIDR Operations
+   Working Group mailing list (mailto:sidrops@ietf.org), which is
+   archived at https://mailarchive.ietf.org/arch/browse/sidrops/.
+   Subscribe at https://www.ietf.org/mailman/listinfo/sidrops/.
 
 Status of This Memo
 
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 30 January 2026.
+   This Internet-Draft will expire on 6 March 2026.
 
 Copyright Notice
 
@@ -72,10 +72,16 @@ Copyright Notice
 Table of Contents
 
    1.  Introduction
-   2.  Conventions and Definitions
-   3.  Security Considerations
-   4.  IANA Considerations
-   5.  Normative References
+     1.1.  Requirements Language
+   2.  Definition
+     2.1.  Public Key and Signature Generation
+     2.2.  Signature Verification
+   3.  ASN.1 Module
+   4.  Security Considerations
+     4.1.  Security Reduction to Second-Preimage Resistance
+   5.  IANA Considerations
+   6.  Normative References
+   Appendix A.  Test Vectors
    Acknowledgments
    Author's Address
 
@@ -85,20 +91,45 @@ Table of Contents
    the Resource Public Key Infrastructure (RPKI) [RFC6480].  The Null
    Scheme is a toy signature scheme that can replace the redundant and
    costly use of actual digital signatures from so-called "one-time-use"
-   key pairs in RPKI Signed Objects [RFC6488].  Signed Objects contain
-   an End-Entity (EE) certificate issued by a Certificate Authority
-   (CA).  This EE certificate usually contains a public key
-   corresponding to a one-time-use key pair, which is used to sign a
-   single CMS signed-data object.  The practice of using each key pair
-   for only one Signed Object enables the use of a CRL [RFC5280] to
-   revoke individual objects.
+   key pairs in RPKI Signed Objects [RFC6488].
 
-   The null scheme is _not_ an actual digital signature algorithm, or
+   Signed Objects contain an End-Entity (EE) certificate issued by a
+   Certificate Authority (CA).  This EE certificate usually contains a
+   public key corresponding to a one-time-use key pair, which is used to
+   sign a single CMS signed-data object [RFC5652].  The practice of
+   using each key pair for only one Signed Object enables the use of a
+   CRL [RFC5280] to revoke individual objects.  However, it means that
+   each Signed Object consists of two signatures and a public key,
+   whereas, intuitively, only one signature should be needed to bind the
+   object to its issuer.
+
+   The Null Scheme is _not_ an actual digital signature algorithm, or
    even a One-Time Signature (OTS) scheme: it requires the (single)
    message to be signed to be known before the public key can be
    generated.
 
-2.  Conventions and Definitions
+   Essentially, the Null Scheme works as follows:
+
+   *  the public key is the digest of the single message to be signed,
+
+   *  there is no private key, and
+
+   *  the signature is always empty.
+
+   Signature generation has to happen together with generation of the
+   public key, taking the message to be signed as input.  A public key
+   cannot be generated without the message being known in advance.
+   Verification is done by simply comparing the message digest with the
+   public key.
+
+   As the input to a signing algorithm when signing a CMS signed-data
+   object is the output of the Message Digest Calculation Process
+   defined in Section 5.4 of [RFC5652], the Null Scheme's public key is
+   technically directly the input of the signing algorithm, rather than
+   a digest of that input.  This avoids an unnecessary extra hashing
+   step.
+
+1.1.  Requirements Language
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
@@ -106,15 +137,137 @@ Table of Contents
    BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
-3.  Security Considerations
+2.  Definition
 
-   TODO Security
+   The Null Scheme MUST only be used to sign and verify the CMS signed-
+   data object contained in an RPKI Signed Object [RFC6488].
+   Consequently, when it is used, a Null Scheme public key appears as
+   the subject of a one-time-use EE certificate attached in the
+   certificates field of the Signed Object's CMS signed-data object.
+   The Null Scheme signature appears in the single SignerInfo object
+   included in the signed-data object's signerInfos field.
 
-4.  IANA Considerations
+   As the Null Scheme requires the message to be signed to be known
+   before the public key can be generated, it consists of two
+   algorithms: SignOnce and Verify, rather than the usual KeyGen, Sign,
+   and Verify algorithms.
 
-   This document has no IANA actions.
+2.1.  Public Key and Signature Generation
 
-5.  Normative References
+   The SignOnce algorithm takes as input the message to be signed m.  It
+   produces as output a public key pk and a signature sig.  As the Null
+   Scheme must only be used to sign CMS signed-data objects, the input
+   message m is the output of the Message Digest Calculation Process
+   defined in Section 5.4 of [RFC5652].  Therefore, although the Null
+   Scheme's public key is always a digest of the message, the SignOnce
+   algorithm actually returns its input m directly.  The digest
+   algorithm used is indicated by the SignerInfo object's
+   digestAlgorithm field.
+
+     1. pk = m    # The output of the message digest calculation process
+     2. sig = ""  # Empty octet string
+     3. return (pk, sig)
+
+                      Figure 1: Algorithm SignOnce(m)
+
+2.2.  Signature Verification
+
+   The Verify algorithm takes as input a message m, a public key pk, and
+   a signature sig.  Like SignOnce, the input m is the output of the
+   Message Digest Calculation Process defined in Section 5.4 of
+   Section 5.4 of [RFC5652].  It produces as output either "valid" or
+   "invalid".
+
+     1. if sig == "" and pk == m then return "valid"
+     2. return "invalid"
+
+                   Figure 2: Algorithm Verify(m, pk, sig)
+
+3.  ASN.1 Module
+
+   RPKINullScheme2025
+     { iso(1) member-body(2) us(840) rsadsi(113549)
+       pkcs(1) pkcs-9(9) smime(16) modules(0) null-scheme-2025(TBD) }
+   -- TODO: module ID to be replaced by IANA
+
+   DEFINITIONS IMPLICIT TAGS ::= BEGIN
+
+   EXPORTS ALL;
+
+   IMPORTS
+     PUBLIC-KEY, SIGNATURE-ALGORITHM
+       FROM AlgorithmInformation-2009  -- RFC 5912
+         { iso(1) i id-mod(0)
+           id-mod-algorithmInformation-02(58) }
+   ;
+
+   -- TODO: OIDs to be replaced by IANA
+   id-RPKI-NULL-SCHEME OBJECT IDENTIFIER ::= {
+       dentified-organization(3) dod(6) internet(1)
+           security(5) mechanisms(5) pkix(7) alg(6) TBD
+     }
+
+   pk-RPKI-NULL-SCHEME PUBLIC-KEY ::= {
+       IDENTIFIER id-RPKI-NULL-SCHEME
+       -- The digest algorithm used to determine the input to the signing / verification
+       -- algorithms is determined by the SignerInfo's digestAlgorithm field. The signing
+       -- and verification algorithms themselves are not dependent on the digest algorithm,
+       -- so we don't need PARAMS or distinct OIDs for pairing different digest algorithms.
+       PARAMS ARE absent
+       -- A Null Scheme public key should only be certified by EE certificates.
+       -- So, in accordance with RFC6487, only the digitalSignature bit is valid.
+       CERT-KEY-USAGE {digitalSignature}
+     }
+
+   sa-RPKI-NULL-SCHEME SIGNATURE-ALGORITHM ::= {
+       IDENTIFIER id-RPKI-NULL-SCHEME
+       PARAMS ARE absent
+       PUBLIC-KEYS {pk-RPKI-NULL-SCHEME}
+     }
+
+   END
+
+4.  Security Considerations
+
+4.1.  Security Reduction to Second-Preimage Resistance
+
+   Although the Null Scheme cannot be used as a general-purpose digital
+   signature algorithm, it does provably provide the same security
+   properties that are expected from normal digital signatures.
+
+   Given a public key pk and corresponding message-signature pair (m,
+   sig), finding another valid message-signature pair (m', sig') is
+   clearly impossible: a pair (m', sig') is only valid under public key
+   pk if m' == pk and sig' == "", and therefore m' == m.
+
+   As the Null Scheme is used to sign CMS signed-data objects, it is, as
+   with any other signature scheme, possible for two distinct messages
+   to lead to the same message digest.  Finding such a second message m'
+   given a message m that is valid under public key pk is breaking the
+   second-preimage resistance of H.  This would not only allow forging
+   (or reusing) a Null Scheme signature on m', but also reusing the
+   signature of any other signature scheme.  This makes the Null Scheme
+   strictly no less secure than any other signature scheme paired with
+   the same digest algorithm H.
+
+5.  IANA Considerations
+
+   IANA is requested to allocate a value from the "SMI Security for S/
+   MIME Module Identifier" registry [RFC7299] for the ASN.1 module
+   RPKINullScheme2025 defined in this document, and a value for id-RPKI-
+   NULL-SCHEME-SHA256 from the "SMI Security for PKIX Algorithms"
+   registry [RFC7299].
+
+   Editorial note: the assigned OID values will need to be added in the
+   ASN.1 module, and test vectors regenerated using the definitive value
+   for id-RPKI-NULL-SCHEME-SHA256.
+
+6.  Normative References
+
+   [FIPS.180-4]
+              "Secure hash standard", National Institute of Standards
+              and Technology (U.S.), DOI 10.6028/nist.fips.180-4, 2015,
+              <https://doi.org/10.6028/nist.fips.180-4>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -126,6 +279,10 @@ Table of Contents
               Infrastructure Certificate and Certificate Revocation List
               (CRL) Profile", RFC 5280, DOI 10.17487/RFC5280, May 2008,
               <https://www.rfc-editor.org/rfc/rfc5280>.
+
+   [RFC5652]  Housley, R., "Cryptographic Message Syntax (CMS)", STD 70,
+              RFC 5652, DOI 10.17487/RFC5652, September 2009,
+              <https://www.rfc-editor.org/rfc/rfc5652>.
 
    [RFC6480]  Lepinski, M. and S. Kent, "An Infrastructure to Support
               Secure Internet Routing", RFC 6480, DOI 10.17487/RFC6480,
@@ -141,13 +298,73 @@ Table of Contents
               (RPKI)", RFC 6488, DOI 10.17487/RFC6488, February 2012,
               <https://www.rfc-editor.org/rfc/rfc6488>.
 
+   [RFC7299]  Housley, R., "Object Identifier Registry for the PKIX
+              Working Group", RFC 7299, DOI 10.17487/RFC7299, July 2014,
+              <https://www.rfc-editor.org/rfc/rfc7299>.
+
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
-Acknowledgments
+Appendix A.  Test Vectors
 
-   TODO acknowledge.
+   The following test vector is a base-64 encoded RPKI Signed Object
+   containing an EE certificate with as subject a Null Scheme public key
+   matching the signed content.  The EE certificate is issued by an RSA
+   key pair, whose public key is also added below.
+
+   Editorial note: the test vectors below are generated using
+   placeholder OID value 1.3.6.1.5.5.7.6.37 for id-RPKI-NULL-SCHEME-
+   SHA256.  This is currently the first unallocated value in the "SMI
+   Security for PKIX Algorithms" registry, so could plausibly be the
+   final value assigned by IANA.  If it is not, the test vectors will
+   need to be updated accordingly.
+
+   MIIEwwYJKoZIhvcNAQcCoIIEtDCCBLACAQMxDTALBglghkgBZQMEAgEwKAYLKoZI
+   hvcNAQkQARigGQQXMBUCAQUwEDAOBAIAATAIMAYDBAB7DCKgggPJMIIDxTCCAq2g
+   AwIBAgIUOuDYJz668njAbGw19R5QBnIXIGswDQYJKoZIhvcNAQELBQAwMzExMC8G
+   A1UEAxMoQjIwODU0OTExQzkwOTkzMDIwRUU5MDg4RTZFMzgwREM4NUI2OTU4NTAe
+   Fw0yNTA5MDIxNjQyNTBaFw0yNjA5MDExNjQ3NTBaMDMxMTAvBgNVBAMTKDdEQjQ1
+   NkYxOUMyODZDQUE3REE0MkZCRUE0NEFERkZFQUE2RTVCRjEwLzAKBggrBgEFBQcG
+   JQMhAKcYGX9zcRNquGO/u1cEGZMln+T6u57JU0/2Mcj0G/CTo4IBxDCCAcAwHQYD
+   VR0OBBYEFH20VvGcKGyqfaQvvqRK3/6qblvxMB8GA1UdIwQYMBaAFLIIVJEckJkw
+   IO6QiObjgNyFtpWFMA4GA1UdDwEB/wQEAwIHgDBcBgNVHR8EVTBTMFGgT6BNhkty
+   c3luYzovL2xvY2FsaG9zdC9yZXBvL2NoaWxkLzAvQjIwODU0OTExQzkwOTkzMDIw
+   RUU5MDg4RTZFMzgwREM4NUI2OTU4NS5jcmwwaAYIKwYBBQUHAQEEXDBaMFgGCCsG
+   AQUFBzAChkxyc3luYzovL2xvY2FsaG9zdC9yZXBvL29ubGluZS8wL0IyMDg1NDkx
+   MUM5MDk5MzAyMEVFOTA4OEU2RTM4MERDODVCNjk1ODUuY2VyMGsGCCsGAQUFBwEL
+   BF8wXTBbBggrBgEFBQcwC4ZPcnN5bmM6Ly9sb2NhbGhvc3QvcmVwby9jaGlsZC8w
+   LzMxMzIzMzJlMzEzMjJlMzMzNDJlMzAyZjMyMzQyZDMyMzQyMDNkM2UyMDM1LnJv
+   YTAYBgNVHSABAf8EDjAMMAoGCCsGAQUFBw4CMB8GCCsGAQUFBwEHAQH/BBAwDjAM
+   BAIAATAGAwQAewwiMA0GCSqGSIb3DQEBCwUAA4IBAQASvguBGM20Z9+2jh/ye00n
+   Uh0GrsoVDia6x8BacBmiURm27tDAW1olz1UZb+fXoVInUif1eNPuNslaO3ANGvLv
+   sg8PFeuGEOG+uYWtqJuJtwK9y8Oyjd9jChrpd7feaxuq4x9zcE0Q6nwRxjOnMheI
+   O5Hcu/UJBnG3xcydKLEA3lGASQb3tPUjQSu15q37ZBFqsnqbOOO0ug9lkJZINqYQ
+   Yk5RBY3rnPfEy2/V/PGzlSkQ0hnJKUvytEN5/MaRMO+vxW3Orjo1gnYjcGTzbFto
+   4IV3/oRY6d0PBTQU1Ue1cli0aKMLu6/qS2FbGQ5M0TLOO0Lo2urJuTMrbAxtu8ys
+   MYGkMIGhAgEDgBR9tFbxnChsqn2kL76kSt/+qm5b8TALBglghkgBZQMEAgGgazAa
+   BgkqhkiG9w0BCQMxDQYLKoZIhvcNAQkQARgwHAYJKoZIhvcNAQkFMQ8XDTI1MDkw
+   MjE2NDc1MFowLwYJKoZIhvcNAQkEMSIEIGqFG0XNytTgiBjHUIc/R42hcSYa3HRF
+   0ik02rIQ70r9MAoGCCsGAQUFBwYlBAA=
+
+        Figure 3: RPKI Signed Object with Null Scheme EE Certificate
+
+   The EE certificate in the Signed Object is issued with the following
+   RSA public key:
+
+   -----BEGIN PUBLIC KEY-----
+   MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApCZfT9fh87KwzvTwuh/J
+   PKbG+En4iSwXx0y8YhZj3ENasiSvNpS+q4ryIbSIHaijcnbfuswUzVRr6SRxr5Kx
+   5IBhCby2fgM+/Qz7dTvE90D14GP6R7Vnx9iR5Aq68Nxy9JmqLjObGSjYc3eoej00
+   sriHrCB0bCkTHd8FcC2bVZRpZo/xVuGToDtS388kaMDtxedvde7dvRBtFUGGSEQL
+   x1mJMI3wzfoPUM/zLOlTJqxwTBuhtwELDjl855XcxSEr2so9+X+AseSwNJzVoM+n
+   Y3wCtogpjq5ObUC3UZoR0hSOJOsp4YRrYYqRiVf8jF8j/bTWiaLO9o+frFK/g5Ux
+   WQIDAQAB
+   -----END PUBLIC KEY-----
+
+             Figure 4: RSA Public Key of EE Certificate Issuer
+
+Acknowledgments
 
 Author's Address
 
