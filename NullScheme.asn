@@ -15,25 +15,27 @@ IMPORTS
 ;
 
 -- TODO: OIDs to be replaced by IANA
-id-RPKI-NULL-SCHEME-SHA256 OBJECT IDENTIFIER ::= {
+id-RPKI-NULL-SCHEME OBJECT IDENTIFIER ::= {
     dentified-organization(3) dod(6) internet(1)
         security(5) mechanisms(5) pkix(7) alg(6) TBD
   }
 
-pk-RPKI-NULL-SCHEME-SHA256 PUBLIC-KEY ::= {
-    IDENTIFIER id-RPKI-NULL-SCHEME-SHA256
-    -- We opted to use an OID for the Null Scheme *with SHA256*.
-    -- Alternatively, there could be a Null Scheme OID, with a required digest algorithm param.
+pk-RPKI-NULL-SCHEME PUBLIC-KEY ::= {
+    IDENTIFIER id-RPKI-NULL-SCHEME
+    -- The digest algorithm used to determine the input to the signing / verification
+    -- algorithms is determined by the SignerInfo's digestAlgorithm field. The signing
+    -- and verification algorithms themselves are not dependent on the digest algorithm,
+    -- so we don't need PARAMS or distinct OIDs for pairing different digest algorithms.
     PARAMS ARE absent
     -- A Null Scheme public key should only be certified by EE certificates.
     -- So, in accordance with RFC6487, only the digitalSignature bit is valid.
     CERT-KEY-USAGE {digitalSignature} 
   }
 
-sa-RPKI-NULL-SCHEME-SHA256 SIGNATURE-ALGORITHM ::= {
-    IDENTIFIER id-RPKI-NULL-SCHEME-SHA256
+sa-RPKI-NULL-SCHEME SIGNATURE-ALGORITHM ::= {
+    IDENTIFIER id-RPKI-NULL-SCHEME
     PARAMS ARE absent
-    PUBLIC-KEYS {pk-RPKI-NULL-SCHEME-SHA256}
+    PUBLIC-KEYS {pk-RPKI-NULL-SCHEME}
   }
 
 END
