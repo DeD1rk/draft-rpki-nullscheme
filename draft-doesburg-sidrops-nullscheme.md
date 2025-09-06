@@ -6,7 +6,7 @@ category: info
 docname: draft-doesburg-sidrops-nullscheme-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
 number:
-date: 2025-09-02
+date: 2025-09-06
 consensus: true
 v: 3
 area: "Operations and Management"
@@ -34,6 +34,20 @@ normative:
   FIPS.180-4: DOI.10.6028/NIST.FIPS.180-4
 
 informative:
+  RFC6486:
+  RFC7935:
+  RFC8391:
+  RFC8554:
+  RFC5755:
+  RFC5272:
+  I-D.draft-ietf-lamps-x509-alg-none-00:
+  PQC-for-the-RPKI:
+    author: 
+    - ins: "D. Doesburg"
+    date: 2025-06-27
+    title: "Post-Quantum Cryptography for the RPKI"
+    refcontent: "MSc Thesis, Radboud University"
+
 
 ...
 
@@ -97,6 +111,26 @@ than a full algorithm migration as it applies only to EE certificates, but still
 
 -->
 
+## Related Work
+
+The Null Scheme is inspired by the idea that the one-time-use key pairs in RPKI Signed Objects could be replaced using One-Time Signature (OTS) algorithms, such as hash-based Lamport or Winternitz signatures as used in XMSS {{RFC8391}} and LMS {{RFC8554}}. While this could be a suitable post-quantum alternative to current signature schemes, these hash-based OTS algorithms have large signatures. It was then observed that the requirements for the one-time-use key pairs in Signed Objects are even weaker than those offered by OTS algorithms: it is possible to know the message to be signed before generating the key pair. 
+
+The Null Scheme takes advantage of this to achieve optimal size and verification time while preserving the structure and validation process of Signed Objects. This makes it possible to introduce the Null Scheme in the RPKI without requiring any changes to its specifications such as {{RFC6480}} and {{RFC6488}}: only the algorithms specification {{RFC7935}} needs to be updated.
+
+### Attribute Certificates
+
+Several other toy signature schemes exist that have some similarities to the Null Scheme, but serve a different purpose.
+{{RFC5755}} describes the use of 'Attribute Certificates' that can allow something other than a public key to be the subject of an X509 certificate. Through using the 'ObjectDigestInfo' holder type (see {{Section 7.3 of RFC5755}}) something equivalent to the Null Scheme can be achieved: the 'holder' of an Attribute Certificate is the digest of an RPKI Signed Object's payload. However, compared to the Null Scheme, using Attribute Certificates in place of plain X.509 EE certificates would require much more extensive changes to the RPKI specifications, making it operationally less practical to introduce.
+
+### No-Signature
+
+{{Appendix C.1 of RFC5272}} and {{I-D.draft-ietf-lamps-x509-alg-none-00}} define a No-Signature algorithm for signatures in X.509 certificates and CMS signed-data objects. These specifications are intended for use-cases where a signature is not needed at all. However, in RPKI Signed Objects, _something_ is needed to bind the Signed Object to an EE certificate. This can be achieved by removing the signature from the CMS signed-data (as in the No-Signature scheme) only if the signed-data is linked to the EE certificate in some other way. That binding is provided by the Null Scheme through the EE certificate's public key. Many alternative ways to provide such a binding exist (such as using Attribute Certificates as mentioned above), but require more extensive changes to the structure of Signed Objects.
+
+### Relying on digest in Manifests
+
+Another more radical way of reducing the cryptographic overhead in the RPKI is to remove the CMS signed-data wrapper and EE certificate from Signed Objects (other than Manifests {{RFC6486}}) entirely, and instead rely on the digest of the Signed Object being listed in a valid Manifest. This is a major change to the workings of the RPKI. It would reduce the cryptographic overhead much more (removing a public key and not one but two signatures per object), but would be very hard to introduce in practice.
+
+
 # Definition
 
 The Null Scheme MUST only be used to sign and verify the CMS signed-data object contained in an RPKI Signed Object {{RFC6488}}.
@@ -119,7 +153,7 @@ As the Null Scheme must only be used to sign CMS signed-data objects, the input 
 
 ## Signature Verification
 
-The `Verify` algorithm takes as input a message `m`, a public key `pk`, and a signature `sig`. Like `SignOnce`, the input `m` is the output of the Message Digest Calculation Process defined in Section 5.4 of {{Section 5.4 of RFC5652}}. It produces as output either "valid" or "invalid".
+The `Verify` algorithm takes as input a message `m`, a public key `pk`, and a signature `sig`. Like `SignOnce`, the input `m` is the output of the Message Digest Calculation Process defined in {{Section 5.4 of RFC5652}}. It produces as output either "valid" or "invalid".
 
 ~~~~
   1. if sig == "" and pk == m then return "valid"

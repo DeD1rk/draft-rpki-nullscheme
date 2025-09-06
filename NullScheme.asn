@@ -1,7 +1,9 @@
 RPKINullScheme2025
   { iso(1) member-body(2) us(840) rsadsi(113549)
     pkcs(1) pkcs-9(9) smime(16) modules(0) null-scheme-2025(TBD) }
+--
 -- TODO: module ID to be replaced by IANA
+--
 
 DEFINITIONS IMPLICIT TAGS ::= BEGIN
 
@@ -14,9 +16,11 @@ IMPORTS
         id-mod-algorithmInformation-02(58) }
 ;
 
+--
 -- TODO: OIDs to be replaced by IANA
+--
 id-RPKI-NULL-SCHEME OBJECT IDENTIFIER ::= {
-    dentified-organization(3) dod(6) internet(1)
+    identified-organization(3) dod(6) internet(1)
         security(5) mechanisms(5) pkix(7) alg(6) TBD
   }
 
