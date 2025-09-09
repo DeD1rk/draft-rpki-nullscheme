@@ -11,20 +11,20 @@
 The Null Scheme is a toy signature scheme that can replace the redundant and costly use of actual digital signatures from so-called &quot;one-time-use&quot; key pairs in Signed Objects.
 The Null Scheme has as public key the digest of the message to be signed, and the signature is always empty. When a Null Scheme public key is the subject of a Signed Object's one-time-use End-Entity (EE) certificate, it establishes a secure binding between the issuer of the EE certificate and the message to be signed. This is cheaper in terms of size and verification time than using a real signature scheme, while providing the same security guarantees. 
     " name="description">
-<meta content="xml2rfc 3.30.0" name="generator">
+<meta content="xml2rfc 3.30.1" name="generator">
 <meta content="draft-doesburg-sidrops-nullscheme-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.30.0
+  xml2rfc 3.30.1
     Python 3.12.11
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
     Jinja2 3.1.6
     lxml 5.3.1
-    platformdirs 4.3.8
+    platformdirs 4.4.0
     pycountry 24.6.1
     PyYAML 6.0.2
-    requests 2.32.4
+    requests 2.32.5
     setuptools 80.9.0
     wcwidth 0.2.13
 -->
@@ -1049,7 +1049,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Doesburg</td>
-<td class="center">Expires 6 March 2026</td>
+<td class="center">Expires 10 March 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1062,12 +1062,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-doesburg-sidrops-nullscheme-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-09-02" class="published">2 September 2025</time>
+<time datetime="2025-09-06" class="published">6 September 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-03-06">6 March 2026</time></dd>
+<dd class="expires"><time datetime="2026-03-10">10 March 2026</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1115,7 +1115,7 @@ The Null Scheme has as public key the digest of the message to be signed, and th
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 6 March 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 10 March 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1145,10 +1145,24 @@ The Null Scheme has as public key the digest of the message to be signed, and th
         </h2>
 <nav class="toc"><ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1">
-            <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="auto internal xref">1</a>.  <a href="#name-introduction" class="internal xref">Introduction</a></p>
+            <p id="section-toc.1-1.1.1"><a href="#section-1" class="auto internal xref">1</a>.  <a href="#name-introduction" class="internal xref">Introduction</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.1">
                 <p id="section-toc.1-1.1.2.1.1" class="keepWithNext"><a href="#section-1.1" class="auto internal xref">1.1</a>.  <a href="#name-requirements-language" class="internal xref">Requirements Language</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.2">
+                <p id="section-toc.1-1.1.2.2.1"><a href="#section-1.2" class="auto internal xref">1.2</a>.  <a href="#name-related-work" class="internal xref">Related Work</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.2.2.1">
+                    <p id="section-toc.1-1.1.2.2.2.1.1" class="keepWithNext"><a href="#section-1.2.1" class="auto internal xref">1.2.1</a>.  <a href="#name-attribute-certificates" class="internal xref">Attribute Certificates</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.2.2.2">
+                    <p id="section-toc.1-1.1.2.2.2.2.1" class="keepWithNext"><a href="#section-1.2.2" class="auto internal xref">1.2.2</a>.  <a href="#name-no-signature" class="internal xref">No-Signature</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.2.2.3">
+                    <p id="section-toc.1-1.1.2.2.2.3.1"><a href="#section-1.2.3" class="auto internal xref">1.2.3</a>.  <a href="#name-relying-on-digest-in-manife" class="internal xref">Relying on digest in Manifests</a></p>
+</li>
+                </ul>
 </li>
             </ul>
 </li>
@@ -1156,7 +1170,7 @@ The Null Scheme has as public key the digest of the message to be signed, and th
             <p id="section-toc.1-1.2.1"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-definition" class="internal xref">Definition</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.1">
-                <p id="section-toc.1-1.2.2.1.1" class="keepWithNext"><a href="#section-2.1" class="auto internal xref">2.1</a>.  <a href="#name-public-key-and-signature-ge" class="internal xref">Public Key and Signature Generation</a></p>
+                <p id="section-toc.1-1.2.2.1.1"><a href="#section-2.1" class="auto internal xref">2.1</a>.  <a href="#name-public-key-and-signature-ge" class="internal xref">Public Key and Signature Generation</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.2">
                 <p id="section-toc.1-1.2.2.2.1"><a href="#section-2.2" class="auto internal xref">2.2</a>.  <a href="#name-signature-verification" class="internal xref">Signature Verification</a></p>
@@ -1178,7 +1192,15 @@ The Null Scheme has as public key the digest of the message to be signed, and th
             <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
-            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-references" class="internal xref">References</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1">
+                <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2">
+                <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="auto internal xref">6.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
             <p id="section-toc.1-1.7.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-test-vectors" class="internal xref">Test Vectors</a></p>
@@ -1227,6 +1249,40 @@ described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</s
 appear in all capitals, as shown here.<a href="#section-1.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
+<div id="related-work">
+<section id="section-1.2">
+        <h3 id="name-related-work">
+<a href="#section-1.2" class="section-number selfRef">1.2. </a><a href="#name-related-work" class="section-name selfRef">Related Work</a>
+        </h3>
+<p id="section-1.2-1">The Null Scheme is inspired by the idea that the one-time-use key pairs in RPKI Signed Objects could be replaced using One-Time Signature (OTS) algorithms, such as hash-based Lamport or Winternitz signatures as used in XMSS <span>[<a href="#RFC8391" class="cite xref">RFC8391</a>]</span> and LMS <span>[<a href="#RFC8554" class="cite xref">RFC8554</a>]</span>. While this could be a suitable post-quantum alternative to current signature schemes, these hash-based OTS algorithms have large signatures. It was then observed that the requirements for the one-time-use key pairs in Signed Objects are even weaker than those offered by OTS algorithms: it is possible to know the message to be signed before generating the key pair.<a href="#section-1.2-1" class="pilcrow">¶</a></p>
+<p id="section-1.2-2">The Null Scheme takes advantage of this to achieve optimal size and verification time while preserving the structure and validation process of Signed Objects. This makes it possible to introduce the Null Scheme in the RPKI without requiring any changes to its specifications such as <span>[<a href="#RFC6480" class="cite xref">RFC6480</a>]</span> and <span>[<a href="#RFC6488" class="cite xref">RFC6488</a>]</span>: only the algorithms specification <span>[<a href="#RFC7935" class="cite xref">RFC7935</a>]</span> needs to be updated.<a href="#section-1.2-2" class="pilcrow">¶</a></p>
+<div id="attribute-certificates">
+<section id="section-1.2.1">
+          <h4 id="name-attribute-certificates">
+<a href="#section-1.2.1" class="section-number selfRef">1.2.1. </a><a href="#name-attribute-certificates" class="section-name selfRef">Attribute Certificates</a>
+          </h4>
+<p id="section-1.2.1-1">Several other toy signature schemes exist that have some similarities to the Null Scheme, but serve a different purpose.
+<span>[<a href="#RFC5755" class="cite xref">RFC5755</a>]</span> describes the use of 'Attribute Certificates' that can allow something other than a public key to be the subject of an X509 certificate. Through using the 'ObjectDigestInfo' holder type (see <span><a href="https://rfc-editor.org/rfc/rfc5755#section-7.3" class="relref">Section 7.3</a> of [<a href="#RFC5755" class="cite xref">RFC5755</a>]</span>) something equivalent to the Null Scheme can be achieved: the 'holder' of an Attribute Certificate is the digest of an RPKI Signed Object's payload. However, compared to the Null Scheme, using Attribute Certificates in place of plain X.509 EE certificates would require much more extensive changes to the RPKI specifications, making it operationally less practical to introduce.<a href="#section-1.2.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="no-signature">
+<section id="section-1.2.2">
+          <h4 id="name-no-signature">
+<a href="#section-1.2.2" class="section-number selfRef">1.2.2. </a><a href="#name-no-signature" class="section-name selfRef">No-Signature</a>
+          </h4>
+<p id="section-1.2.2-1"><span><a href="https://rfc-editor.org/rfc/rfc5272#appendix-C.1" class="relref">Appendix C.1</a> of [<a href="#RFC5272" class="cite xref">RFC5272</a>]</span> and <span>[<a href="#I-D.ietf-lamps-x509-alg-none-00" class="cite xref">I-D.ietf-lamps-x509-alg-none-00</a>]</span> define a No-Signature algorithm for signatures in X.509 certificates and CMS signed-data objects. These specifications are intended for use-cases where a signature is not needed at all. However, in RPKI Signed Objects, <em>something</em> is needed to bind the Signed Object to an EE certificate. This can be achieved by removing the signature from the CMS signed-data (as in the No-Signature scheme) only if the signed-data is linked to the EE certificate in some other way. That binding is provided by the Null Scheme through the EE certificate's public key. Many alternative ways to provide such a binding exist (such as using Attribute Certificates as mentioned above), but require more extensive changes to the structure of Signed Objects.<a href="#section-1.2.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="relying-on-digest-in-manifests">
+<section id="section-1.2.3">
+          <h4 id="name-relying-on-digest-in-manife">
+<a href="#section-1.2.3" class="section-number selfRef">1.2.3. </a><a href="#name-relying-on-digest-in-manife" class="section-name selfRef">Relying on digest in Manifests</a>
+          </h4>
+<p id="section-1.2.3-1">Another more radical way of reducing the cryptographic overhead in the RPKI is to remove the CMS signed-data wrapper and EE certificate from Signed Objects (other than Manifests <span>[<a href="#RFC6486" class="cite xref">RFC6486</a>]</span>) entirely, and instead rely on the digest of the Signed Object being listed in a valid Manifest. This is a major change to the workings of the RPKI. It would reduce the cryptographic overhead much more (removing a public key and not one but two signatures per object), but would be very hard to introduce in practice.<a href="#section-1.2.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
 </section>
 </div>
 <div id="definition">
@@ -1264,7 +1320,7 @@ As the Null Scheme must only be used to sign CMS signed-data objects, the input 
         <h3 id="name-signature-verification">
 <a href="#section-2.2" class="section-number selfRef">2.2. </a><a href="#name-signature-verification" class="section-name selfRef">Signature Verification</a>
         </h3>
-<p id="section-2.2-1">The <code>Verify</code> algorithm takes as input a message <code>m</code>, a public key <code>pk</code>, and a signature <code>sig</code>. Like <code>SignOnce</code>, the input <code>m</code> is the output of the Message Digest Calculation Process defined in Section 5.4 of <span><a href="https://rfc-editor.org/rfc/rfc5652#section-5.4" class="relref">Section 5.4</a> of [<a href="#RFC5652" class="cite xref">RFC5652</a>]</span>. It produces as output either "valid" or "invalid".<a href="#section-2.2-1" class="pilcrow">¶</a></p>
+<p id="section-2.2-1">The <code>Verify</code> algorithm takes as input a message <code>m</code>, a public key <code>pk</code>, and a signature <code>sig</code>. Like <code>SignOnce</code>, the input <code>m</code> is the output of the Message Digest Calculation Process defined in <span><a href="https://rfc-editor.org/rfc/rfc5652#section-5.4" class="relref">Section 5.4</a> of [<a href="#RFC5652" class="cite xref">RFC5652</a>]</span>. It produces as output either "valid" or "invalid".<a href="#section-2.2-1" class="pilcrow">¶</a></p>
 <span id="name-algorithm-verifym-pk-sig"></span><div id="alg-verify">
 <figure id="figure-2">
           <div class="alignLeft art-text artwork" id="section-2.2-2.1">
@@ -1291,7 +1347,9 @@ As the Null Scheme must only be used to sign CMS signed-data objects, the input 
 RPKINullScheme2025
   { iso(1) member-body(2) us(840) rsadsi(113549)
     pkcs(1) pkcs-9(9) smime(16) modules(0) null-scheme-2025(TBD) }
+--
 -- TODO: module ID to be replaced by IANA
+--
 
 DEFINITIONS IMPLICIT TAGS ::= BEGIN
 
@@ -1304,9 +1362,11 @@ IMPORTS
         id-mod-algorithmInformation-02(58) }
 ;
 
+--
 -- TODO: OIDs to be replaced by IANA
+--
 id-RPKI-NULL-SCHEME OBJECT IDENTIFIER ::= {
-    dentified-organization(3) dod(6) internet(1)
+    identified-organization(3) dod(6) internet(1)
         security(5) mechanisms(5) pkix(7) alg(6) TBD
   }
 
@@ -1360,49 +1420,97 @@ provably provide the same security properties that are expected from normal digi
 <p id="section-5-2">Editorial note: the assigned OID values will need to be added in the ASN.1 module, and test vectors regenerated using the definitive value for <code>id-RPKI-NULL-SCHEME-SHA256</code>.<a href="#section-5-2" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="sec-normative-references">
+<div id="sec-combined-references">
 <section id="section-6">
-      <h2 id="name-normative-references">
-<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+      <h2 id="name-references">
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-references" class="section-name selfRef">References</a>
       </h2>
+<div id="sec-normative-references">
+<section id="section-6.1">
+        <h3 id="name-normative-references">
+<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+        </h3>
 <dl class="references">
 <dt id="FIPS.180-4">[FIPS.180-4]</dt>
-      <dd>
+        <dd>
 <span class="refTitle">"Secure hash standard"</span>, <span class="refContent">National Institute of Standards and Technology (U.S.)</span>, <span class="seriesInfo">DOI 10.6028/nist.fips.180-4</span>, <time datetime="2015" class="refDate">2015</time>, <span>&lt;<a href="https://doi.org/10.6028/nist.fips.180-4">https://doi.org/10.6028/nist.fips.180-4</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC5280">[RFC5280]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Cooper, D.</span>, <span class="refAuthor">Santesson, S.</span>, <span class="refAuthor">Farrell, S.</span>, <span class="refAuthor">Boeyen, S.</span>, <span class="refAuthor">Housley, R.</span>, and <span class="refAuthor">W. Polk</span>, <span class="refTitle">"Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile"</span>, <span class="seriesInfo">RFC 5280</span>, <span class="seriesInfo">DOI 10.17487/RFC5280</span>, <time datetime="2008-05" class="refDate">May 2008</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5280">https://www.rfc-editor.org/rfc/rfc5280</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC5652">[RFC5652]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Housley, R.</span>, <span class="refTitle">"Cryptographic Message Syntax (CMS)"</span>, <span class="seriesInfo">STD 70</span>, <span class="seriesInfo">RFC 5652</span>, <span class="seriesInfo">DOI 10.17487/RFC5652</span>, <time datetime="2009-09" class="refDate">September 2009</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5652">https://www.rfc-editor.org/rfc/rfc5652</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC6480">[RFC6480]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Lepinski, M.</span> and <span class="refAuthor">S. Kent</span>, <span class="refTitle">"An Infrastructure to Support Secure Internet Routing"</span>, <span class="seriesInfo">RFC 6480</span>, <span class="seriesInfo">DOI 10.17487/RFC6480</span>, <time datetime="2012-02" class="refDate">February 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6480">https://www.rfc-editor.org/rfc/rfc6480</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC6487">[RFC6487]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Huston, G.</span>, <span class="refAuthor">Michaelson, G.</span>, and <span class="refAuthor">R. Loomans</span>, <span class="refTitle">"A Profile for X.509 PKIX Resource Certificates"</span>, <span class="seriesInfo">RFC 6487</span>, <span class="seriesInfo">DOI 10.17487/RFC6487</span>, <time datetime="2012-02" class="refDate">February 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6487">https://www.rfc-editor.org/rfc/rfc6487</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC6488">[RFC6488]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Lepinski, M.</span>, <span class="refAuthor">Chi, A.</span>, and <span class="refAuthor">S. Kent</span>, <span class="refTitle">"Signed Object Template for the Resource Public Key Infrastructure (RPKI)"</span>, <span class="seriesInfo">RFC 6488</span>, <span class="seriesInfo">DOI 10.17487/RFC6488</span>, <time datetime="2012-02" class="refDate">February 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6488">https://www.rfc-editor.org/rfc/rfc6488</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC7299">[RFC7299]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Housley, R.</span>, <span class="refTitle">"Object Identifier Registry for the PKIX Working Group"</span>, <span class="seriesInfo">RFC 7299</span>, <span class="seriesInfo">DOI 10.17487/RFC7299</span>, <time datetime="2014-07" class="refDate">July 2014</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7299">https://www.rfc-editor.org/rfc/rfc7299</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8174">[RFC8174]</dt>
-    <dd>
+      <dd>
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
+</section>
+</div>
+<div id="sec-informative-references">
+<section id="section-6.2">
+        <h3 id="name-informative-references">
+<a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+        </h3>
+<dl class="references">
+<dt id="I-D.ietf-lamps-x509-alg-none-00">[I-D.ietf-lamps-x509-alg-none-00]</dt>
+        <dd>
+<span class="refAuthor">Benjamin, D.</span>, <span class="refTitle">"Unsigned X.509 Certificates"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-lamps-x509-alg-none-00</span>, <time datetime="2025-03-20" class="refDate">20 March 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-lamps-x509-alg-none-00">https://datatracker.ietf.org/doc/html/draft-ietf-lamps-x509-alg-none-00</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="PQC-for-the-RPKI">[PQC-for-the-RPKI]</dt>
+        <dd>
+<span class="refAuthor">Doesburg, D.</span>, <span class="refTitle">"Post-Quantum Cryptography for the RPKI"</span>, <span class="refContent">MSc Thesis, Radboud University</span>, <time datetime="2025-06-27" class="refDate">27 June 2025</time>. </dd>
+<dd class="break"></dd>
+<dt id="RFC5272">[RFC5272]</dt>
+        <dd>
+<span class="refAuthor">Schaad, J.</span> and <span class="refAuthor">M. Myers</span>, <span class="refTitle">"Certificate Management over CMS (CMC)"</span>, <span class="seriesInfo">RFC 5272</span>, <span class="seriesInfo">DOI 10.17487/RFC5272</span>, <time datetime="2008-06" class="refDate">June 2008</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5272">https://www.rfc-editor.org/rfc/rfc5272</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC5755">[RFC5755]</dt>
+        <dd>
+<span class="refAuthor">Farrell, S.</span>, <span class="refAuthor">Housley, R.</span>, and <span class="refAuthor">S. Turner</span>, <span class="refTitle">"An Internet Attribute Certificate Profile for Authorization"</span>, <span class="seriesInfo">RFC 5755</span>, <span class="seriesInfo">DOI 10.17487/RFC5755</span>, <time datetime="2010-01" class="refDate">January 2010</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5755">https://www.rfc-editor.org/rfc/rfc5755</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC6486">[RFC6486]</dt>
+        <dd>
+<span class="refAuthor">Austein, R.</span>, <span class="refAuthor">Huston, G.</span>, <span class="refAuthor">Kent, S.</span>, and <span class="refAuthor">M. Lepinski</span>, <span class="refTitle">"Manifests for the Resource Public Key Infrastructure (RPKI)"</span>, <span class="seriesInfo">RFC 6486</span>, <span class="seriesInfo">DOI 10.17487/RFC6486</span>, <time datetime="2012-02" class="refDate">February 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6486">https://www.rfc-editor.org/rfc/rfc6486</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC7935">[RFC7935]</dt>
+        <dd>
+<span class="refAuthor">Huston, G.</span> and <span class="refAuthor">G. Michaelson, Ed.</span>, <span class="refTitle">"The Profile for Algorithms and Key Sizes for Use in the Resource Public Key Infrastructure"</span>, <span class="seriesInfo">RFC 7935</span>, <span class="seriesInfo">DOI 10.17487/RFC7935</span>, <time datetime="2016-08" class="refDate">August 2016</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7935">https://www.rfc-editor.org/rfc/rfc7935</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8391">[RFC8391]</dt>
+        <dd>
+<span class="refAuthor">Huelsing, A.</span>, <span class="refAuthor">Butin, D.</span>, <span class="refAuthor">Gazdag, S.</span>, <span class="refAuthor">Rijneveld, J.</span>, and <span class="refAuthor">A. Mohaisen</span>, <span class="refTitle">"XMSS: eXtended Merkle Signature Scheme"</span>, <span class="seriesInfo">RFC 8391</span>, <span class="seriesInfo">DOI 10.17487/RFC8391</span>, <time datetime="2018-05" class="refDate">May 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8391">https://www.rfc-editor.org/rfc/rfc8391</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8554">[RFC8554]</dt>
+      <dd>
+<span class="refAuthor">McGrew, D.</span>, <span class="refAuthor">Curcio, M.</span>, and <span class="refAuthor">S. Fluhrer</span>, <span class="refTitle">"Leighton-Micali Hash-Based Signatures"</span>, <span class="seriesInfo">RFC 8554</span>, <span class="seriesInfo">DOI 10.17487/RFC8554</span>, <time datetime="2019-04" class="refDate">April 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8554">https://www.rfc-editor.org/rfc/rfc8554</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+</div>
 </section>
 </div>
 <div id="test-vectors">
