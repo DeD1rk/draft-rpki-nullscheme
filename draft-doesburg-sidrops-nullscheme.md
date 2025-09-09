@@ -40,9 +40,9 @@ informative:
   RFC8554:
   RFC5755:
   RFC5272:
-  I-D.draft-ietf-lamps-x509-alg-none-00:
+  I-D.ietf-lamps-x509-alg-none-00:
   PQC-for-the-RPKI:
-    author: 
+    author:
     - ins: "D. Doesburg"
     date: 2025-06-27
     title: "Post-Quantum Cryptography for the RPKI"
@@ -113,7 +113,7 @@ than a full algorithm migration as it applies only to EE certificates, but still
 
 ## Related Work
 
-The Null Scheme is inspired by the idea that the one-time-use key pairs in RPKI Signed Objects could be replaced using One-Time Signature (OTS) algorithms, such as hash-based Lamport or Winternitz signatures as used in XMSS {{RFC8391}} and LMS {{RFC8554}}. While this could be a suitable post-quantum alternative to current signature schemes, these hash-based OTS algorithms have large signatures. It was then observed that the requirements for the one-time-use key pairs in Signed Objects are even weaker than those offered by OTS algorithms: it is possible to know the message to be signed before generating the key pair. 
+The Null Scheme is inspired by the idea that the one-time-use key pairs in RPKI Signed Objects could be replaced using One-Time Signature (OTS) algorithms, such as hash-based Lamport or Winternitz signatures as used in XMSS {{RFC8391}} and LMS {{RFC8554}}. While this could be a suitable post-quantum alternative to current signature schemes, these hash-based OTS algorithms have large signatures. It was then observed that the requirements for the one-time-use key pairs in Signed Objects are even weaker than those offered by OTS algorithms: it is possible to know the message to be signed before generating the key pair.
 
 The Null Scheme takes advantage of this to achieve optimal size and verification time while preserving the structure and validation process of Signed Objects. This makes it possible to introduce the Null Scheme in the RPKI without requiring any changes to its specifications such as {{RFC6480}} and {{RFC6488}}: only the algorithms specification {{RFC7935}} needs to be updated.
 
@@ -124,7 +124,7 @@ Several other toy signature schemes exist that have some similarities to the Nul
 
 ### No-Signature
 
-{{Appendix C.1 of RFC5272}} and {{I-D.draft-ietf-lamps-x509-alg-none-00}} define a No-Signature algorithm for signatures in X.509 certificates and CMS signed-data objects. These specifications are intended for use-cases where a signature is not needed at all. However, in RPKI Signed Objects, _something_ is needed to bind the Signed Object to an EE certificate. This can be achieved by removing the signature from the CMS signed-data (as in the No-Signature scheme) only if the signed-data is linked to the EE certificate in some other way. That binding is provided by the Null Scheme through the EE certificate's public key. Many alternative ways to provide such a binding exist (such as using Attribute Certificates as mentioned above), but require more extensive changes to the structure of Signed Objects.
+{{Appendix C.1 of RFC5272}} and {{I-D.ietf-lamps-x509-alg-none-00}} define a No-Signature algorithm for signatures in X.509 certificates and CMS signed-data objects. These specifications are intended for use-cases where a signature is not needed at all. However, in RPKI Signed Objects, _something_ is needed to bind the Signed Object to an EE certificate. This can be achieved by removing the signature from the CMS signed-data (as in the No-Signature scheme) only if the signed-data is linked to the EE certificate in some other way. That binding is provided by the Null Scheme through the EE certificate's public key. Many alternative ways to provide such a binding exist (such as using Attribute Certificates as mentioned above), but require more extensive changes to the structure of Signed Objects.
 
 ### Relying on digest in Manifests
 
