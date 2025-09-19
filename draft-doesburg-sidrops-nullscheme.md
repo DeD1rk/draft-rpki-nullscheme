@@ -199,7 +199,6 @@ IANA is requested to allocate a value from the "SMI Security for S/MIME Module I
 
 Editorial note: the assigned OID values will need to be added in the ASN.1 module, and test vectors regenerated using the definitive value for `id-RPKI-NULL-SCHEME-SHA256`.
 
-<!-- Probably 1.3.6.1.5.5.7.6.37 -->
 
 --- back
 
@@ -207,37 +206,35 @@ Editorial note: the assigned OID values will need to be added in the ASN.1 modul
 
 The following test vector is a base-64 encoded RPKI Signed Object containing an EE certificate with as subject a Null Scheme public key matching the signed content. The EE certificate is issued by an RSA key pair, whose public key is also added below.
 
-<!-- TODO: possibly give a detailed explanation of the messageDigest Signed Attribute, the message digest calculation process, and the corresponding public key. -->
-
-Editorial note: the test vectors below are generated using placeholder OID value `1.3.6.1.5.5.7.6.37` for `id-RPKI-NULL-SCHEME-SHA256`. This is currently the first unallocated value in the "SMI Security for PKIX Algorithms" registry, so could plausibly be the final value assigned by IANA. If it is not, the test vectors will need to be updated accordingly.
+Editorial note: the test vectors below are generated using placeholder OID value `1.3.6.1.4.1.64241.1.1` for `id-RPKI-NULL-SCHEME-SHA256`. Once IANA has assigned a value, the test vectors will need to be regenerated using that definitive OID value.
 
 ~~~~
-MIIEwwYJKoZIhvcNAQcCoIIEtDCCBLACAQMxDTALBglghkgBZQMEAgEwKAYLKoZI
-hvcNAQkQARigGQQXMBUCAQUwEDAOBAIAATAIMAYDBAB7DCKgggPJMIIDxTCCAq2g
-AwIBAgIUOuDYJz668njAbGw19R5QBnIXIGswDQYJKoZIhvcNAQELBQAwMzExMC8G
-A1UEAxMoQjIwODU0OTExQzkwOTkzMDIwRUU5MDg4RTZFMzgwREM4NUI2OTU4NTAe
-Fw0yNTA5MDIxNjQyNTBaFw0yNjA5MDExNjQ3NTBaMDMxMTAvBgNVBAMTKDdEQjQ1
-NkYxOUMyODZDQUE3REE0MkZCRUE0NEFERkZFQUE2RTVCRjEwLzAKBggrBgEFBQcG
-JQMhAKcYGX9zcRNquGO/u1cEGZMln+T6u57JU0/2Mcj0G/CTo4IBxDCCAcAwHQYD
-VR0OBBYEFH20VvGcKGyqfaQvvqRK3/6qblvxMB8GA1UdIwQYMBaAFLIIVJEckJkw
-IO6QiObjgNyFtpWFMA4GA1UdDwEB/wQEAwIHgDBcBgNVHR8EVTBTMFGgT6BNhkty
-c3luYzovL2xvY2FsaG9zdC9yZXBvL2NoaWxkLzAvQjIwODU0OTExQzkwOTkzMDIw
-RUU5MDg4RTZFMzgwREM4NUI2OTU4NS5jcmwwaAYIKwYBBQUHAQEEXDBaMFgGCCsG
-AQUFBzAChkxyc3luYzovL2xvY2FsaG9zdC9yZXBvL29ubGluZS8wL0IyMDg1NDkx
-MUM5MDk5MzAyMEVFOTA4OEU2RTM4MERDODVCNjk1ODUuY2VyMGsGCCsGAQUFBwEL
-BF8wXTBbBggrBgEFBQcwC4ZPcnN5bmM6Ly9sb2NhbGhvc3QvcmVwby9jaGlsZC8w
-LzMxMzIzMzJlMzEzMjJlMzMzNDJlMzAyZjMyMzQyZDMyMzQyMDNkM2UyMDM1LnJv
-YTAYBgNVHSABAf8EDjAMMAoGCCsGAQUFBw4CMB8GCCsGAQUFBwEHAQH/BBAwDjAM
-BAIAATAGAwQAewwiMA0GCSqGSIb3DQEBCwUAA4IBAQASvguBGM20Z9+2jh/ye00n
-Uh0GrsoVDia6x8BacBmiURm27tDAW1olz1UZb+fXoVInUif1eNPuNslaO3ANGvLv
-sg8PFeuGEOG+uYWtqJuJtwK9y8Oyjd9jChrpd7feaxuq4x9zcE0Q6nwRxjOnMheI
-O5Hcu/UJBnG3xcydKLEA3lGASQb3tPUjQSu15q37ZBFqsnqbOOO0ug9lkJZINqYQ
-Yk5RBY3rnPfEy2/V/PGzlSkQ0hnJKUvytEN5/MaRMO+vxW3Orjo1gnYjcGTzbFto
-4IV3/oRY6d0PBTQU1Ue1cli0aKMLu6/qS2FbGQ5M0TLOO0Lo2urJuTMrbAxtu8ys
-MYGkMIGhAgEDgBR9tFbxnChsqn2kL76kSt/+qm5b8TALBglghkgBZQMEAgGgazAa
-BgkqhkiG9w0BCQMxDQYLKoZIhvcNAQkQARgwHAYJKoZIhvcNAQkFMQ8XDTI1MDkw
-MjE2NDc1MFowLwYJKoZIhvcNAQkEMSIEIGqFG0XNytTgiBjHUIc/R42hcSYa3HRF
-0ik02rIQ70r9MAoGCCsGAQUFBwYlBAA=
+MIIExwYJKoZIhvcNAQcCoIIEuDCCBLQCAQMxDTALBglghkgBZQMEAgEwKAYLKoZI
+hvcNAQkQARigGQQXMBUCAQUwEDAOBAIAATAIMAYDBAB7DCKgggPLMIIDxzCCAq+g
+AwIBAgIUfsjuEOuYMPFgVb8W26Oa9upWd3owDQYJKoZIhvcNAQELBQAwMzExMC8G
+A1UEAxMoRTU4QzAzRjlGQUNDM0I5QUIxMEY3OEJEQTZDODZDNkQ1N0IyNTBGMzAe
+Fw0yNTA5MTkxODQ5MzNaFw0yNjA5MTgxODU0MzNaMDMxMTAvBgNVBAMTKDhGQjJE
+NkY0MjkzNTNCMENBRTQ0MDM5NjRDOUI3MDk3N0I5M0RDMDAwMTAMBgorBgEEAYP1
+cQEBAyEAs4nZPXR8JArehzIBiIrCTWPw2Hw2w+m5L+uO+7aW7FmjggHEMIIBwDAd
+BgNVHQ4EFgQUj7LW9Ck1OwyuRAOWTJtwl3uT3AAwHwYDVR0jBBgwFoAU5YwD+frM
+O5qxD3i9pshsbVeyUPMwDgYDVR0PAQH/BAQDAgeAMFwGA1UdHwRVMFMwUaBPoE2G
+S3JzeW5jOi8vbG9jYWxob3N0L3JlcG8vY2hpbGQvMC9FNThDMDNGOUZBQ0MzQjlB
+QjEwRjc4QkRBNkM4NkM2RDU3QjI1MEYzLmNybDBoBggrBgEFBQcBAQRcMFowWAYI
+KwYBBQUHMAKGTHJzeW5jOi8vbG9jYWxob3N0L3JlcG8vb25saW5lLzAvRTU4QzAz
+RjlGQUNDM0I5QUIxMEY3OEJEQTZDODZDNkQ1N0IyNTBGMy5jZXIwawYIKwYBBQUH
+AQsEXzBdMFsGCCsGAQUFBzALhk9yc3luYzovL2xvY2FsaG9zdC9yZXBvL2NoaWxk
+LzAvMzEzMjMzMmUzMTMyMmUzMzM0MmUzMDJmMzIzNDJkMzIzNDIwM2QzZTIwMzUu
+cm9hMBgGA1UdIAEB/wQOMAwwCgYIKwYBBQUHDgIwHwYIKwYBBQUHAQcBAf8EEDAO
+MAwEAgABMAYDBAB7DCIwDQYJKoZIhvcNAQELBQADggEBAI/6f6QVtlCDdeUtSaDY
++hcI3MQy8I68o3u7dBK492bzhEHX94EbXF8vJCqqckBCHUUJwOb2MfUiUq0ZjUyG
+baBksk+4k55CaFTi0QAgbnCYZ+08bTCd61yc7bYiyPpHOW3MWX9evTir+h2uFJyT
+ETWtkb7APGJgTA9KtIxCj2rNveKv+gmci/mi3FMELLn/y0QAexBMVPIyU142KUrM
+X5SeHvHYz9QzXwpyhKVeyqD3wMTe+I70mEMnCjMZTHGSYsfykXbXKmAmnk76SB7n
+C1MCy8BhCUBLBAn+QcK4aTpqVi3i/2V2a3EZm+nfcNB/kb/wMCCYawrS6XjFpWL8
+LoYxgaYwgaMCAQOAFI+y1vQpNTsMrkQDlkybcJd7k9wAMAsGCWCGSAFlAwQCAaBr
+MBoGCSqGSIb3DQEJAzENBgsqhkiG9w0BCRABGDAcBgkqhkiG9w0BCQUxDxcNMjUw
+OTE5MTg1NDMzWjAvBgkqhkiG9w0BCQQxIgQgaoUbRc3K1OCIGMdQhz9HjaFxJhrc
+dEXSKTTashDvSv0wDAYKKwYBBAGD9XEBAQQA
 ~~~~
 {: #testvector-signedobject title="RPKI Signed Object with Null Scheme EE Certificate" }
 
@@ -245,18 +242,17 @@ The EE certificate in the Signed Object is issued with the following RSA public 
 
 ~~~~
 -----BEGIN PUBLIC KEY-----
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApCZfT9fh87KwzvTwuh/J
-PKbG+En4iSwXx0y8YhZj3ENasiSvNpS+q4ryIbSIHaijcnbfuswUzVRr6SRxr5Kx
-5IBhCby2fgM+/Qz7dTvE90D14GP6R7Vnx9iR5Aq68Nxy9JmqLjObGSjYc3eoej00
-sriHrCB0bCkTHd8FcC2bVZRpZo/xVuGToDtS388kaMDtxedvde7dvRBtFUGGSEQL
-x1mJMI3wzfoPUM/zLOlTJqxwTBuhtwELDjl855XcxSEr2so9+X+AseSwNJzVoM+n
-Y3wCtogpjq5ObUC3UZoR0hSOJOsp4YRrYYqRiVf8jF8j/bTWiaLO9o+frFK/g5Ux
-WQIDAQAB
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2nyEbcU+KLPQYfV+NYVD
+2GVy06sXSoWSMbHl4BNgpkyaVT+wmXfiBq5RT33Nb5bm6mNsX6rZzRBm9BT6p5wb
+y+eMpVHqbrLb4JfBXSQnq+7132iTkfgBbIt5v5Z2Ly6UfiBb/Ftpz/5NeYpDpd65
+A0qngooYjY6Loyjvfoa53Rc40/bfWGkValseQ0qrww9t3ztejpWUIY8p5FzNdjeV
+XfkB1DgMmllLAUcRb+yC844oEGNJyZL1Stspo9+HVLUOUUXpoylXjd7rOStuq8Y1
+JGa6VWHq6q0hwd67oEcZRwGmExJKhvuRPy+Udk1a2S3X60s9pqMOd4Soo5cKtul4
+ZQIDAQAB
 -----END PUBLIC KEY-----
 ~~~~
 {: #testvector-issuer title="RSA Public Key of EE Certificate Issuer" }
 
-<!-- Possibly attach openssl asn1parse output here for easier inspection? -->
 
 # Acknowledgments
 {:numbered="false"}
