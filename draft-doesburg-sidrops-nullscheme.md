@@ -257,5 +257,5 @@ ZQIDAQAB
 # Acknowledgments
 {:numbered="false"}
 
-<!-- TODO acknowledge. -->
+The author would like to thank Moritz Müller, Ralph Koning and Lisa Bruder who supervised the thesis that led to the idea of the Null Scheme, and especially to Job Snijders for his valuable comments and suggestions on earlier drafts of this document.
 
