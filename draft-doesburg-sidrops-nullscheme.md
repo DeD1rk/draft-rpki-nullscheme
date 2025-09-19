@@ -47,7 +47,12 @@ informative:
     date: 2025-06-27
     title: "Post-Quantum Cryptography for the RPKI"
     refcontent: "MSc Thesis, Radboud University"
-
+  OTS:
+    author:
+    - ins: "L. Lamport"
+    date: 1979-10-18
+    title: Constructing Digital Signatures from a One Way Function
+    refcontent: "SRI International, CSL-98"
 
 ...
 
@@ -66,7 +71,7 @@ The Null Scheme is a toy signature scheme that can replace the redundant and cos
 
 Signed Objects contain an End-Entity (EE) certificate issued by a Certificate Authority (CA). This EE certificate usually contains a public key corresponding to a one-time-use key pair, which is used to sign a single CMS signed-data object {{RFC5652}}. The practice of using each key pair for only one Signed Object enables the use of a CRL {{RFC5280}} to revoke individual objects. However, it means that each Signed Object consists of two signatures and a public key, whereas, intuitively, only one signature should be needed to bind the object to its issuer.
 
-The Null Scheme is _not_ an actual digital signature algorithm, or even a One-Time Signature (OTS) <!-- TODO: reference  --> scheme: it requires the (single) message to be signed to be known before the public key can be generated.
+The Null Scheme is _not_ an actual digital signature algorithm, or even a One-Time Signature {{OTS}}: it requires the (single) message to be signed to be known before the public key can be generated.
 
 
 Essentially, the Null Scheme works as follows:
@@ -82,34 +87,6 @@ As the input to a signing algorithm when signing a CMS signed-data object is the
 ## Requirements Language
 
 {::boilerplate bcp14-tagged}
-
-<!--
-
-## Related Work
-
-## Glossary / Terminology
-
-
-Maybe somewhere:
-
-# Updates to RFC7935
-
-This can update the algorithms specification, so a separate update or obsoletion of RFC7935 is not needed.
-On the one hand, that might it easier to introduce only the Null Scheme without considering a bigger update to RFC7935.
-On the other hand, keeping the Null Scheme specification separate from RFC7935 may be cleaner, as the Null Scheme definition would
-hopefully still be necessary in later versions of RFC7935.
-
-Technically, if this document updates RFC7935, and RFC7935 is later obsoleted, that only means that the 'Updates to RFC7935' section in this document becomes irrelevant. The rest of the document remains a proper specification of the Null Scheme, that can be referenced from the replacement of RFC7935. So the hygiene argument against updating RFC7935 from this document is not very strong.
-
-# Operational Considerations
-
-If this document gets an 'Updates to RFC7935' section, I think it should also have an 'Operational Considerations'
-section detailing the 'algorithm migration' aspects of introducing use of the Null Scheme. This is much less complicated
-than a full algorithm migration as it applies only to EE certificates, but still it's important for CAs to not publish
-(only) Null Scheme EE certificates if Relying Parties do not support it yet.
-
-
--->
 
 ## Related Work
 
