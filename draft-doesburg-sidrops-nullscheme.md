@@ -59,7 +59,7 @@ informative:
 --- abstract
 
 This document specifies the Null Scheme for use in Signed Objects in the Resource Public Key Infrastructure (RPKI).
-The Null Scheme is a toy signature scheme that can replace the redundant and costly use of actual digital signatures from so-called "one-time-use" key pairs in Signed Objects.
+The Null Scheme is a niche signature scheme that can replace the redundant and costly use of actual digital signatures from so-called "one-time-use" key pairs in Signed Objects.
 The Null Scheme has as public key the digest of the message to be signed, and the signature is always empty. When a Null Scheme public key is the subject of a Signed Object's one-time-use End-Entity (EE) certificate, it establishes a secure binding between the issuer of the EE certificate and the message to be signed. This is cheaper in terms of size and verification time than using a real signature scheme, while providing the same security guarantees.
 
 --- middle
@@ -67,7 +67,7 @@ The Null Scheme has as public key the digest of the message to be signed, and th
 # Introduction
 
 This document specifies the Null Scheme for use in Signed Objects in the Resource Public Key Infrastructure (RPKI) {{RFC6480}}.
-The Null Scheme is a toy signature scheme that can replace the redundant and costly use of actual digital signatures from so-called "one-time-use" key pairs in RPKI Signed Objects {{RFC6488}}.
+The Null Scheme is a niche signature scheme that can replace the redundant and costly use of actual digital signatures from so-called "one-time-use" key pairs in RPKI Signed Objects {{RFC6488}}.
 
 Signed Objects contain an End-Entity (EE) certificate issued by a Certificate Authority (CA). This EE certificate usually contains a public key corresponding to a one-time-use key pair, which is used to sign a single CMS signed-data object {{RFC5652}}. The practice of using each key pair for only one Signed Object enables the use of a CRL {{RFC5280}} to revoke individual objects. However, it means that each Signed Object consists of two signatures and a public key, whereas, intuitively, only one signature should be needed to bind the object to its issuer.
 
@@ -96,7 +96,7 @@ The Null Scheme takes advantage of this to achieve optimal size and verification
 
 ### Attribute Certificates
 
-Several other toy signature schemes exist that have some similarities to the Null Scheme, but serve a different purpose.
+Several other niche signature schemes exist that have some similarities to the Null Scheme, but serve a different purpose.
 {{RFC5755}} describes the use of 'Attribute Certificates' that can allow something other than a public key to be the subject of an X509 certificate. Through using the 'ObjectDigestInfo' holder type (see {{Section 7.3 of RFC5755}}) something equivalent to the Null Scheme can be achieved: the 'holder' of an Attribute Certificate is the digest of an RPKI Signed Object's payload. However, compared to the Null Scheme, using Attribute Certificates in place of plain X.509 EE certificates would require much more extensive changes to the RPKI specifications, making it operationally less practical to introduce.
 
 ### No-Signature
