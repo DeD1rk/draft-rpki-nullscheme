@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-07-16T02:41:21.577122+00:00",
+  "timestamp": "2026-07-19T02:49:05.993978+00:00",
   "repo": "DeD1rk/draft-rpki-nullscheme",
   "labels": [
     {
@@ -49,6 +49,23 @@
       "color": "ffffff"
     }
   ],
-  "issues": [],
+  "issues": [
+    {
+      "number": 1,
+      "id": "I_kwDOPUGJw88AAAABJONRHw",
+      "title": "Add CRL testvector",
+      "url": "https://github.com/DeD1rk/draft-rpki-nullscheme/issues/1",
+      "state": "OPEN",
+      "author": "job",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Hi Dirk,\n\nCould you be so kind to add an example CRL for the test vector CA?\n\nKind regards,\n\nJob",
+      "createdAt": "2026-07-17T18:28:15Z",
+      "updatedAt": "2026-07-17T18:28:15Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
   "pulls": []
 }
